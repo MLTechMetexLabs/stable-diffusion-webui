@@ -53,7 +53,7 @@ class InterrogateModels:
         self.loaded_categories = None
         self.skip_categories = []
         self.content_dir = content_dir
-        self.running_on_cpu = devices.device_interrogate == torch.device("cpu")
+        self.running_on_cpu = devices.device_interrogate == torch.device("cuda")
 
     def categories(self):
         if not os.path.exists(self.content_dir):
@@ -107,7 +107,7 @@ class InterrogateModels:
         import clip
 
         if self.running_on_cpu:
-            model, preprocess = clip.load(clip_model_name, device="cpu", download_root=shared.cmd_opts.clip_models_path)
+            model, preprocess = clip.load(clip_model_name, device="cuda", download_root=shared.cmd_opts.clip_models_path)
         else:
             model, preprocess = clip.load(clip_model_name, download_root=shared.cmd_opts.clip_models_path)
 

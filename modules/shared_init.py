@@ -32,7 +32,7 @@ def initialize():
     devices.dtype_inference = torch.float32 if cmd_opts.precision == 'full' else devices.dtype
 
     shared.device = devices.device
-    shared.weight_load_location = None if cmd_opts.lowram else "cpu"
+    shared.weight_load_location = None if cmd_opts.lowram else "cuda"
 
     from modules import shared_state
     shared.state = shared_state.State()

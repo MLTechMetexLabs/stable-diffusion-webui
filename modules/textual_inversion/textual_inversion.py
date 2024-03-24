@@ -175,9 +175,9 @@ class EmbeddingDatabase:
                     # if data is None, means this is not an embeding, just a preview image
                     return
         elif ext in ['.BIN', '.PT']:
-            data = torch.load(path, map_location="cpu")
+            data = torch.load(path, map_location="cuda")
         elif ext in ['.SAFETENSORS']:
-            data = safetensors.torch.load_file(path, device="cpu")
+            data = safetensors.torch.load_file(path, device="cuda")
         else:
             return
 
@@ -476,7 +476,7 @@ def train_embedding(id_task, embedding_name, learn_rate, batch_size, gradient_st
     if shared.opts.save_optimizer_state:
         optimizer_state_dict = None
         if os.path.exists(f"{filename}.optim"):
-            optimizer_saved_dict = torch.load(f"{filename}.optim", map_location='cpu')
+            optimizer_saved_dict = torch.load(f"{filename}.optim", map_location='cuda')
             if embedding.checksum() == optimizer_saved_dict.get('hash', None):
                 optimizer_state_dict = optimizer_saved_dict.get('optimizer_state_dict', None)
 

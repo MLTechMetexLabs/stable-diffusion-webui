@@ -60,7 +60,7 @@ def get_optimal_device_name():
     if npu_specific.has_npu:
         return npu_specific.get_npu_device_string()
 
-    return "cpu"
+    return "cuda"
 
 
 def get_optimal_device():
@@ -112,7 +112,7 @@ def enable_tf32():
 
 errors.run(enable_tf32, "Enabling TF32")
 
-cpu: torch.device = torch.device("cpu")
+cpu: torch.device = torch.device("cuda")
 fp8: bool = False
 device: torch.device = None
 device_interrogate: torch.device = None
@@ -207,7 +207,7 @@ def autocast(disable=False):
         return contextlib.nullcontext()
 
     if fp8 and device==cpu:
-        return torch.autocast("cpu", dtype=torch.bfloat16, enabled=True)
+        return torch.autocast("cuda", dtype=torch.bfloat16, enabled=True)
 
     if fp8 and dtype_inference == torch.float32:
         return manual_cast(dtype)

@@ -9,7 +9,7 @@ from modules import torch_utils
 @pytest.mark.parametrize("wrapped", [True, False])
 def test_get_param(wrapped):
     mod = torch.nn.Linear(1, 1)
-    cpu = torch.device("cpu")
+    cpu = torch.device("cuda")
     mod.to(dtype=torch.float16, device=cpu)
     if wrapped:
         # more or less how spandrel wraps a thing

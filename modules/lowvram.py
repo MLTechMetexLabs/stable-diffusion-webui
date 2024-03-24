@@ -2,7 +2,7 @@ import torch
 from modules import devices, shared
 
 module_in_gpu = None
-cpu = torch.device("cpu")
+cpu = torch.device("cuda")
 
 
 def send_everything_to_cpu():

@@ -84,7 +84,7 @@ def get_dict():
         "Commandline": get_argv(),
         "Torch env info": get_torch_sysinfo(),
         "Exceptions": errors.get_exceptions(),
-        "CPU": {
+        "cuda": {
             "model": platform.processor(),
             "count logical": psutil.cpu_count(logical=True),
             "count physical": psutil.cpu_count(logical=False),

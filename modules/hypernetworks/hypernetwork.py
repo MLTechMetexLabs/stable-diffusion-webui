@@ -244,7 +244,7 @@ class Hypernetwork:
         if self.name is None:
             self.name = os.path.splitext(os.path.basename(filename))[0]
 
-        state_dict = torch.load(filename, map_location='cpu')
+        state_dict = torch.load(filename, map_location='cuda')
 
         self.layer_structure = state_dict.get('layer_structure', [1, 2, 1])
         self.optional_info = state_dict.get('optional_info', None)
@@ -271,7 +271,7 @@ class Hypernetwork:
             print(f"  Activate last layer: {self.activate_output}")
             print(f"  Dropout structure: {self.dropout_structure}")
 
-        optimizer_saved_dict = torch.load(self.filename + '.optim', map_location='cpu') if os.path.exists(self.filename + '.optim') else {}
+        optimizer_saved_dict = torch.load(self.filename + '.optim', map_location='cuda') if os.path.exists(self.filename + '.optim') else {}
 
         if self.shorthash() == optimizer_saved_dict.get('hash', None):
             self.optimizer_state_dict = optimizer_saved_dict.get('optimizer_state_dict', None)
